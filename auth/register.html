@@ -5,76 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register - JSTACK</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    /* Focus state for the OTP input to make it look professional */
+    #otp:focus { border-color: #0a66c2; box-shadow: 0 0 8px rgba(10,102,194,0.2); outline: none; }
+    .step-indicator { display: flex; justify-content: center; margin-bottom: 20px; gap: 10px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; }
+    .dot.active { background: #0a66c2; }
+  </style>
 </head>
 <body>
 
 <header class="navbar">
   <h2>JSTACK</h2>
-  <a href="../index.html">← Home</a>
+  <a href="../index.html" style="color:white; text-decoration:none; font-size:14px;">← Back to Home</a>
 </header>
 
 <div class="form-container">
   <div class="form-box" style="max-width:460px;">
-    <h2>Create Account</h2>
+    <h2 style="margin-bottom: 5px;">Create Account</h2>
+    <p style="color:#888; font-size:14px; margin-bottom:20px;">Join the JSTACK community today</p>
+    
     <div id="alert-box"></div>
 
-    <!-- Step 1: Registration Form -->
     <div id="step-register">
+      <div class="step-indicator"><div class="dot active"></div><div class="dot"></div></div>
       <form onsubmit="handleSendOtp(event)">
         <div class="input-group">
-          <label>Full Name</label>
-          <input type="text" id="name" placeholder="Your full name" required>
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="John Doe" required autocomplete="name">
         </div>
         <div class="input-group">
-          <label>Email Address</label>
-          <input type="email" id="email" placeholder="you@example.com" required>
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
         </div>
         <div class="input-group">
-          <label>Password</label>
-          <input type="password" id="password" placeholder="Min 6 characters" required minlength="6">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Min 6 characters" required minlength="6" autocomplete="new-password">
         </div>
         <div class="input-group">
-          <label>Confirm Password</label>
-          <input type="password" id="confirm-password" placeholder="Re-enter password" required>
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Re-enter password" required autocomplete="new-password">
         </div>
         <div class="input-group">
-          <label>I am a...</label>
+          <label for="role">I am a...</label>
           <select id="role">
             <option value="seeker">Job Seeker</option>
             <option value="employer">Employer</option>
           </select>
         </div>
-        <button type="submit" id="register-btn" style="width:100%;margin-top:10px;">
+        <button type="submit" id="register-btn" class="btn-primary" style="width:100%; margin-top:10px; padding: 12px;">
           Send Verification Code
         </button>
       </form>
     </div>
 
-    <!-- Step 2: OTP Verification -->
     <div id="step-otp" style="display:none;">
-      <p style="color:#555;font-size:14px;margin-bottom:20px;">
+      <div class="step-indicator"><div class="dot"></div><div class="dot active"></div></div>
+      <p style="color:#555; font-size:14px; margin-bottom:20px; text-align: center;">
         A 6-digit code was sent to your email. Enter it below to verify your account.
       </p>
       <form onsubmit="handleVerifyOtp(event)">
         <div class="input-group">
-          <label>Verification Code (OTP)</label>
-          <input type="text" id="otp" placeholder="e.g. 123456" maxlength="6"
-                 style="font-size:24px;letter-spacing:8px;text-align:center;" required>
+          <label for="otp" style="text-align: center; display: block;">Verification Code (OTP)</label>
+          <input type="text" id="otp" placeholder="000000" maxlength="6" 
+                 inputmode="numeric" pattern="[0-9]*"
+                 style="font-size:32px; letter-spacing:12px; text-align:center; font-weight: bold; padding: 15px 0;" required>
         </div>
-        <button type="submit" id="verify-btn" style="width:100%;margin-top:10px;">
+        <button type="submit" id="verify-btn" class="btn-primary" style="width:100%; margin-top:10px; padding: 12px;">
           Verify & Create Account
         </button>
       </form>
-      <button onclick="document.getElementById('step-otp').style.display='none';
-                       document.getElementById('step-register').style.display='block';"
-              class="secondary" style="width:100%;margin-top:10px;">
-        ← Back
+      <button onclick="document.getElementById('step-otp').style.display='none'; 
+                       document.getElementById('step-register').style.display='block';" 
+              class="btn-outline" style="width:100%; margin-top:15px; border:none; background:transparent; color:#666;">
+        ← Incorrect email? Go back
       </button>
     </div>
 
-    <p style="margin-top:16px;font-size:14px;">
-      Already have an account? <a href="login.html" style="color:#0a66c2;">Login</a>
-    </p>
+    <div style="margin-top:25px; font-size:14px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+      Already have an account? <a href="login.html" style="color:#0a66c2; font-weight: bold; text-decoration: none;">Login</a>
+    </div>
   </div>
 </div>
 
